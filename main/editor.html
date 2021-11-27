@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tjsEditor</title>
+    <link rel="stylesheet" type="text/css" href="editor.css">
+
+    <script src="store/default.js"></script>
+
+    <script src="support/libs/jquery/jquery.js"></script>
+    <!--高亮-->
+    <link rel="stylesheet" href="support/libs/codeMirror/lib/codemirror.css">
+    <script src="support/libs/codeMirror/lib/codemirror.js"></script>
+    <script src="support/libs/codeMirror/mode/javascript/javascript.js"></script>
+    <link rel="stylesheet" href="support/libs/codeMirror/theme/darcula.css">
+    <!--threeJs-->
+    <script src="support/libs/threejs/three/three.js"></script>
+    <script src="support/libs/threejs/three/controls/OrbitControls.js"></script>
+
+    <script src="editorThree.js"></script>
+    <script src="editor.js"></script>
+</head>
+<body>
+    <div class="leftHeader">
+        <div class="headerPin current" id="codePin">敲代码</div>
+        <div class="headerPin" id="viewPin">看源码</div>
+        <div class="headerPin" id="debugPin">荻BUG</div>
+    </div>
+    <div class="codeDiv leftPl currentDiv">
+        <div class="innerDiv">
+            <ul class="nav">
+                <li><p>创建全局变量<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>创建场景对象<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>创建网格模型<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>光源设置<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>相机设置<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>创建渲染器对象<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>周期渲染函数<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+                <li><p>场景全局操作<span></span></p>
+                    <div class="sub">
+                        <textarea class="codePlace" spellcheck="false">
+
+                        </textarea>
+                    </div>
+                </li>        
+            </ul>
+        </div>
+    </div>
+    <div class="viewDiv leftPl">
+
+    </div>
+    <div class="debugDiv leftPl">
+
+    </div>
+
+    <div class="displayDiv rightPl">
+
+    </div>
+</body>
+</html>
