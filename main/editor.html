@@ -11,10 +11,9 @@
 
     <script src="support/libs/jquery/jquery.js"></script>
     <!--高亮-->
-    <link rel="stylesheet" href="support/libs/codeMirror/lib/codemirror.css">
-    <script src="support/libs/codeMirror/lib/codemirror.js"></script>
-    <script src="support/libs/codeMirror/mode/javascript/javascript.js"></script>
-    <link rel="stylesheet" href="support/libs/codeMirror/theme/darcula.css">
+    <link rel="stylesheet" href="support/libs/highLight/github-dark.min.css">
+    <script src="support/libs/highLight/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <!--threeJs-->
     <script src="support/libs/threejs/three/three.js"></script>
     <script src="support/libs/threejs/three/controls/OrbitControls.js"></script>
@@ -33,71 +32,91 @@
             <ul class="nav">
                 <li><p>创建全局变量<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>创建场景对象<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>创建网格模型<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>光源设置<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>相机设置<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>创建渲染器对象<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>周期渲染函数<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
                 <li><p>场景全局操作<span></span></p>
                     <div class="sub">
-                        <textarea class="codePlace" spellcheck="false">
-
-                        </textarea>
+                        <pre>
+                            <code class="language-javascript codePlace" contenteditable="true" spellcheck="false">
+                
+                            </code>
+                        </pre>
                     </div>
                 </li>        
             </ul>
         </div>
     </div>
     <div class="viewDiv leftPl">
+        <pre>
+            <code class="language-javascript viewPlace" contenteditable="true" spellcheck="false">
 
+            </code>
+        </pre>
     </div>
     <div class="debugDiv leftPl">
 
     </div>
 
-    <div class="displayDiv rightPl">
+    <div class="displayDiv rightPl" id="displayCancas">
 
     </div>
 </body>

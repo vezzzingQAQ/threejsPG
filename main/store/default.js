@@ -14,6 +14,10 @@ const randValue=1;
 function rand(randValue){
     return(Math.random()*randValue-randValue/2);
 }
+
+//相机&渲染对象
+var camera;
+var renderer;
 `
     },
     {
@@ -79,12 +83,12 @@ scene.add(spotLight); //光对象添加到scene场景中
         id:5,
         code:
 `
-var width = window.innerWidth*0.7; //窗口宽度
-var height = window.innerHeight; //窗口高度
+var width = document.querySelector("#displayCancas").offsetWidth; //窗口宽度
+var height = document.querySelector("#displayCancas").offsetHeight; //窗口高度
 var k = width / height; //窗口宽高比
 var s = 200; //三维场景显示范围控制系数，系数越大，显示的范围越大
 //创建相机对象
-var camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
+camera = new THREE.PerspectiveCamera(60, width / height, 1, 1000);
 camera.position.set(200, 300, 200); //设置相机位置
 camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
 `
@@ -93,9 +97,9 @@ camera.lookAt(scene.position); //设置相机方向(指向的场景对象)
         id:6,
         code:
 `
-var renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);//设置渲染区域尺寸
-renderer.setClearColor("#222222", 1); //设置背景颜色
+renderer.setClearColor("#000000", 1); //设置背景颜色
 renderer.shadowMap.enabled = true;
 container = document.querySelector(".displayDiv"); 
 container.appendChild(renderer.domElement); 

@@ -1,15 +1,22 @@
+/**
+ * 主操作脚本
+ * by vezzzing
+ * 2021.11.27,28,29,30
+ */
 $(function(){
     {/**代码嵌入 */
         let i=0;
         $(".codeDiv .codePlace").each(function(){
-            $(this).val(store[i].code);
+            $(this).text(store[i].code);
             i+=1;
         });
         {/**先渲染一遍 */
             let textTemp=[];
             $(".codeDiv .codePlace").each(function(){
-                textTemp.push($(this).val());
+                textTemp.push($(this).text());
             });
+            $(".viewDiv .viewPlace").text(draw(textTemp));
+            hljs.highlightAll();
             try{
                 eval(draw(textTemp));
             }catch{
@@ -17,29 +24,20 @@ $(function(){
             }
         }
     }
-    /*
-    {
-        document.querySelectorAll(".codeDiv .codePlace").forEach(function(el){
-            CodeMirror.fromTextArea(el,{
-                mode: "text/javascript",
-                theme: "darcula",
-            });
-        });
-    }
-    */
     {/**监听菜单点击事件 */
-        $(".codeDiv .nav>li").click(function(){
+        $(".codeDiv .nav>li>p").click(function(){
             //展开二级菜单
-            var $sub=$(this).children(".sub");
-            $sub.slideDown(800);
-            //焦点
-            $sub.children(".CodeMirror").focus();
-            //收起所有非当前二级菜单
-            var $siblingSub=$(this).siblings().children(".sub");
-            $siblingSub.slideUp(800);
-            //旋转箭头
-            $(this).addClass("current");
-            $(this).siblings().removeClass("current");
+            var $par=$(this).parent("li");
+            var $sub=$par.children(".sub");
+            if(($sub).css("display")=="none"){
+                $sub.slideDown(800);
+                //旋转箭头
+                $par.addClass("current");
+            }else{
+                $sub.slideUp(800);
+                //旋转箭头
+                $par.removeClass("current");
+            }
         });
     }
     {/**点击头部标签切换工作区 */
@@ -51,19 +49,33 @@ $(function(){
             let currentBox=$("."+fcs);
             currentBox.addClass("currentDiv");
             currentBox.siblings().removeClass("currentDiv");
+            //高亮
+            hljs.highlightAll();
         })
     }
-    {/**渲染 */
+    {/**按键输入渲染 */
         $(".codeDiv .codePlace").keyup(function(){
             let textTemp=[];
             $(".displayDiv").children("canvas").remove();
             $(".codeDiv .codePlace").each(function(){
-                textTemp.push($(this).val());
+                textTemp.push($(this).text());
             });
+            $(".viewDiv .viewPlace").text(draw(textTemp));
             try{
                 eval(draw(textTemp));
             }catch{
-
+                console.log("error");
+            }
+        })
+    }
+    {/**允许输入Tab键 */
+        //BUG
+        $(".codeDiv .codePlace").keydown(function(e){
+            if(e.keyCode==9){
+                e.preventDefault();
+                var indent="    ";
+                $(this).text+=indent;
+                $(this).setSelectionRange(len,len);
             }
         })
     }
