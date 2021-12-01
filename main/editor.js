@@ -4,10 +4,10 @@
  * 2021.11.27,28,29,30
  */
 $(function(){
-    {/**代码嵌入 */
+    function renderCode(index){/**指定一个索引进行渲染 */
         let i=0;
         $(".codeDiv .codePlace").each(function(){
-            $(this).text(store[i].code);
+            $(this).text(store[index].code[i]);
             i+=1;
         });
         {/**先渲染一遍 */
@@ -22,6 +22,19 @@ $(function(){
             }catch{
                 
             }
+        }
+    }
+    {/**代码嵌入 */
+        renderCode(0);
+    }
+    {/**范例嵌入 */
+        for(let i=0;i<store.length;i++){
+            let pastHtml=$(".examplesDiv").html();
+            $(".examplesDiv").html(pastHtml+`
+                <ul>
+                    <li>${store[i].name}</li>
+                </ul>
+            `)
         }
     }
     {/**监听菜单点击事件 */
@@ -54,17 +67,19 @@ $(function(){
         })
     }
     {/**按键输入渲染 */
-        $(".codeDiv .codePlace").keyup(function(){
-            let textTemp=[];
-            $(".displayDiv").children("canvas").remove();
-            $(".codeDiv .codePlace").each(function(){
-                textTemp.push($(this).text());
-            });
-            $(".viewDiv .viewPlace").text(draw(textTemp));
-            try{
-                eval(draw(textTemp));
-            }catch{
-                console.log("error");
+        $(".codeDiv .codePlace").keyup(function(e){
+            if (17==e.keyCode && e.shiftKey){
+                let textTemp=[];
+                $(".displayDiv").children("canvas").remove();
+                $(".codeDiv .codePlace").each(function(){
+                    textTemp.push($(this).text());
+                });
+                $(".viewDiv .viewPlace").text(draw(textTemp));    
+                try{
+                    eval(draw(textTemp));
+                }catch{
+                    
+                }
             }
         })
     }
@@ -74,8 +89,34 @@ $(function(){
             if(e.keyCode==9){
                 e.preventDefault();
                 var indent="    ";
-                $(this).text+=indent;
-                $(this).setSelectionRange(len,len);
+                $(this).text($(this).text()+indent);
+                //$(this).setSelectionRange(len,len);
+            }
+        })
+    }
+    {/**点击范例切换 */
+        $(".examplesDiv>ul>li").click(function(){
+            let name=$(this).text();
+            for(let i=0;i<store.length;i++){
+                if(name==store[i].name){
+                    $(".displayDiv").children("canvas").remove();
+                    renderCode(i);
+                }
+            }
+        })
+    }
+    {/**点击运行 */
+        $(".runButton").click(function(){
+            let textTemp=[];
+            $(".displayDiv").children("canvas").remove();
+            $(".codeDiv .codePlace").each(function(){
+                textTemp.push($(this).text());
+            });
+            $(".viewDiv .viewPlace").text(draw(textTemp));    
+            try{
+                eval(draw(textTemp));
+            }catch{
+                
             }
         })
     }

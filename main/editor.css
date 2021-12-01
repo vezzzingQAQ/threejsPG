@@ -136,6 +136,35 @@ body{
 .viewDiv .viewPlace::-webkit-scrollbar{
     display: none;
 }
+/*examples*/
+.examplesDiv{
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.examplesDiv::-webkit-scrollbar{
+    display: none;
+}
+.examplesDiv ul{
+    padding: 10px;
+}
+.examplesDiv ul:nth-child(1){
+    margin-top: 10px;
+}
+.examplesDiv ul>li{
+    display: block;
+    background-color: rgb(36, 36, 36);
+    font-size: 15px;
+    padding: 5px;
+    text-align: center;
+    letter-spacing: 2px;
+    color: white;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+.examplesDiv ul>li:hover{
+    background-color: rgb(59, 59, 59);
+}
+
 /*display*/
 .displayDiv{
     position: absolute;
@@ -144,4 +173,26 @@ body{
     width: 70vw;
     height: 100vh;
     background-color: rgb(34, 34, 34);
+}
+/*button list*/
+.runButton{
+    position: absolute;
+    left: calc(30vw + 30px);
+    top: 30px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    z-index: 10;
+    background-color: rgb(63, 63, 63);
+    color: rgb(189, 189, 189);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    transform: rotate(90deg);
+}
+.runButton:hover{
+    background-color: rgb(121, 121, 121);
+    color: rgb(255, 255, 255);
+    transform: rotate(0deg);
 }
