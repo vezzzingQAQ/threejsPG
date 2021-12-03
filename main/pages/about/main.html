@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于</title>
+    <style>
+        *{
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar{
+            display: none;
+        }
+        body{
+            width: 100vw;
+            padding: 0;
+            margin: 0;
+            background-color: black;
+        }
+        .header{
+            width: 100vw;
+            height: 100vh;
+            background-image: url(../../support/imgs/editor/ico_can.png);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+        .header h2{
+            text-align: center;
+            color: rgba(255, 255, 255, 0.192);
+            margin-top: 45vh;
+            font-size: 50px;
+            letter-spacing: 30px;
+        }
+        .header h2>span{
+            font-size: 100px;
+            position: absolute;
+            left: 48vw;
+            top: 44vh;
+            color: rgb(255, 255, 0);
+            animation: ani 5s ease-in-out infinite;
+        }
+        @keyframes ani{
+            0%{
+                transform: translateX(-50px) rotateX(180deg);
+                font-size: 0;
+                opacity: 0;
+            }
+            50%{
+                transform: translateX(0px) translateY(-20px) rotateY(580deg) rotateX(0);
+                font-size: 100px;
+                opacity: 1;
+            }
+            100%{
+                transform: translateX(350px) rotateX(180deg);
+                font-size: 0;
+                opacity: 0;
+            }
+        }
+        .contain p{
+            padding: 50px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.418);
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <h2>threejs查看 装</h2>
+        <h2><span>置</span></h2>
+    </section>
+    <section class="contain">
+        <p>作者:<span style="color: yellow;">Vezzzing</span></p>
+        <p>作者状态:<span>还<span style="color: yellow;">氵舌</span>着 ｡ ∀ ･</span></p>
+        <p>框架最后更新:<span>2021.12.3</span></p>
+        <p>项目最后更新:<span>2021.12.3</span></p>
+    </section>
+</body>
+</html>
