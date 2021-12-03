@@ -53,16 +53,12 @@ window.addEventListener("resize",function(){
 //!!**创建立方体{{
 var cubeGeometry=new THREE.BoxGeometry(4,4,4);
 var cubeMaterial=new THREE.MeshBasicMaterial({
-    color:0x00ff00,
+    color:0xf0ff00,
     wireframe:true,
 });
 var cube=new THREE.Mesh(cubeGeometry,cubeMaterial);
 cube.position.set(0,0,0);
 scene.add(cube);
-//}}
-//!!**创建坐标系{{
-var axes=new THREE.AxesHelper(20);
-scene.add(axes);
 //}}
 //!!**渲染场景{{
 function render(){
@@ -76,7 +72,7 @@ function render(){
 render();
 //}}
 //!!**整体操作{{
-var controls = new THREE.OrbitControls(camera,renderer.domElement);
+var activeControls=new THREE.OrbitControls(camera,renderer.domElement);
 //}}
 //////////////////////////////////////////////////
 }

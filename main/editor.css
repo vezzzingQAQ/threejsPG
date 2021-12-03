@@ -177,24 +177,22 @@ body{
 /*button list*/
 .runButton{
     position: absolute;
-    left: calc(30vw + 30px);
-    top: 30px;
-    width: 35px;
-    height: 35px;
-    line-height: 35px;
+    left: 30vw;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
     text-align: center;
     z-index: 1110;
-    background-color: rgb(63, 63, 63);
-    color: rgb(189, 189, 189);
-    border-radius: 50%;
+    background-color: transparent;
+    color: transparent;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    transform: rotate(90deg);
 }
 .runButton:hover{
-    background-color: rgb(121, 121, 121);
-    color: rgb(255, 255, 255);
-    transform: rotate(0deg);
+    background-color: rgba(255,255,255,0.1);
+    color: white;
+    backdrop-filter: blur(2px);
 }
 /*about*/
 .aboutButton{
@@ -213,10 +211,12 @@ body{
 .aboutButton>a{
     color: transparent;
     text-decoration: none;
+    transition: 0.5s ease-in-out;
 }
 .aboutButton:hover{
     background-color: rgba(255,255,255,0.1);
     color: white;
+    backdrop-filter: blur(2px);
 }
 .aboutButton:hover a{
     color: white;

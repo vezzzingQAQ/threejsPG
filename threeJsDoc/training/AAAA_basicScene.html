@@ -49,14 +49,14 @@ cube.position.set(0,0,0);
 scene.add(cube);
 //}}
 //!!**渲染场景{{
-function render(){
+function renderScene(){
     renderer.render(scene,camera);
     cube.rotation.x+=0.02;
     cube.rotation.y+=0.015;
     cube.rotation.z+=0.01;
-    requestAnimationFrame(render);
+    requestAnimationFrame(renderScene);
 }
-render();
+renderScene();
 //}}
 //!!**整体操作{{
 var controls = new THREE.OrbitControls(camera,renderer.domElement);//创建控件对象

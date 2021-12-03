@@ -100,6 +100,14 @@ $(function(){
             });
             $(".viewDiv .viewPlace").text(allCodeTemp);    
             try{
+                try{
+                    //移除可能存在的datGUI
+                    $("body").removeChild(".dg");
+                    $("body").removeChild(".ac");
+                }catch{
+                    let outputStr="没有存在的datGUI控件";
+                    console.log(outputStr);
+                }
                 eval(allCodeTemp);
             }catch{
                 
