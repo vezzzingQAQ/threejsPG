@@ -5,20 +5,33 @@
  */
 $(function(){
     function renderCode(index){/**指定一个索引进行渲染 */
-        let i=0;
-        $(".codeDiv .codePlace").each(function(){
-            $(this).text(store[index].code[i]);
-            i+=1;
-        });
+        /**根据store文件嵌入代码分段显示 */
+        $(".codeDiv .nav").html("");
+        let allCodeTemp="";//全部代码存放
+        for(let i=0;i<store[index].code.length;i++){
+            let container=$(".codeDiv .nav");
+            let textTemp=
+            `
+            <li><p>${store[index].code[i].sectionName}<span></span></p>
+            <div class="sub">
+                <pre>
+                    <code class="language-javascript codePlace" id=${store[index].code[i].sectionName} contenteditable="true" spellcheck="false">
+                        
+                    </code>
+                </pre>
+            </div>
+            </li>        
+            `
+            container.html(container.html()+textTemp);
+            $(".codeDiv .nav #"+store[index].code[i].sectionName).text(store[index].code[i].context);
+            //更新全部代码
+            allCodeTemp+=store[index].code[i].context;
+        }
         {/**先渲染一遍 */
-            let textTemp=[];
-            $(".codeDiv .codePlace").each(function(){
-                textTemp.push($(this).text());
-            });
-            $(".viewDiv .viewPlace").text(draw(textTemp));
+            $(".viewDiv .viewPlace").text(allCodeTemp);
             hljs.highlightAll();
             try{
-                eval(draw(textTemp));
+                eval(allCodeTemp);
             }catch{
                 
             }
@@ -38,7 +51,8 @@ $(function(){
         }
     }
     {/**监听菜单点击事件 */
-        $(".codeDiv .nav>li>p").click(function(){
+        $("body").delegate(".codeDiv .nav>li>p","click",function(){
+            //因为会删改所以用代理
             //展开二级菜单
             var $par=$(this).parent("li");
             var $sub=$par.children(".sub");
@@ -64,34 +78,6 @@ $(function(){
             currentBox.siblings().removeClass("currentDiv");
             //高亮
             hljs.highlightAll();
-        })
-    }
-    {/**按键输入渲染 */
-        $(".codeDiv .codePlace").keyup(function(e){
-            if (17==e.keyCode && e.shiftKey){
-                let textTemp=[];
-                $(".displayDiv").children("canvas").remove();
-                $(".codeDiv .codePlace").each(function(){
-                    textTemp.push($(this).text());
-                });
-                $(".viewDiv .viewPlace").text(draw(textTemp));    
-                try{
-                    eval(draw(textTemp));
-                }catch{
-                    
-                }
-            }
-        })
-    }
-    {/**允许输入Tab键 */
-        //BUG
-        $(".codeDiv .codePlace").keydown(function(e){
-            if(e.keyCode==9){
-                e.preventDefault();
-                var indent="    ";
-                $(this).text($(this).text()+indent);
-                //$(this).setSelectionRange(len,len);
-            }
         })
     }
     {/**点击范例切换 */

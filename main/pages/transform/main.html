@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>转换为储存类</title>
+    <script src="../../support/libs/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script>
+        $(function(){
+            /*
+            寻址格式
+            //!!**【类名】{{
+            【方法体】
+            //}}
+            */
+            function search(str){
+                let titles=str.match(/\/\/!!.+?{{/g);
+                let contains=str.match(/{{[\s\S]*?\/\/}}/g);
+                console.log(contains);
+                return({titles:titles,contains:contains});
+            }
+            $(".codePlace").click(function(){
+                try{
+                    let titles=search($(".codePlace").val()).titles;
+                    let contains=search($(".codePlace").val()).contains;
+                    var textTemp="{\nname:\"\",\ncode:\n[\n";
+                    for(var i=0;i<titles.length;i++){
+                        textTemp+="{\nsectionName:\""+titles[i].slice(6,-2)+"\",\n"
+                        textTemp+="context:\n"
+                        textTemp+="`\n";
+                        //textTemp+="/**!!!"+titles[i].slice(6,-2)+" */\n";
+                        textTemp+=contains[i].slice(2,-4);
+                        textTemp+="\n`\n},";
+                    }
+                    textTemp+="\n]\n}\n,";
+                    $(".outputPlace").val(textTemp);
+                }catch{
+
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <textarea class="language-javascript codePlace" spellcheck="false">
+
+    </textarea>
+
+    <textarea class="outputPlace">
+
+    </textarea>
+</body>
+</html>
