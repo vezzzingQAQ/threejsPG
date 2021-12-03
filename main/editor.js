@@ -85,7 +85,7 @@ $(function(){
             let name=$(this).text();
             for(let i=0;i<store.length;i++){
                 if(name==store[i].name){
-                    $(".displayDiv").children("canvas").remove();
+                    $(".displayDiv").empty();
                     renderCode(i);
                 }
             }
@@ -93,14 +93,14 @@ $(function(){
     }
     {/**点击运行 */
         $(".runButton").click(function(){
-            let textTemp=[];
+            let allCodeTemp="";
             $(".displayDiv").children("canvas").remove();
             $(".codeDiv .codePlace").each(function(){
-                textTemp.push($(this).text());
+                allCodeTemp+=$(this).text();
             });
-            $(".viewDiv .viewPlace").text(draw(textTemp));    
+            $(".viewDiv .viewPlace").text(allCodeTemp);    
             try{
-                eval(draw(textTemp));
+                eval(allCodeTemp);
             }catch{
                 
             }

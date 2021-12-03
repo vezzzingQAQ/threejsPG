@@ -25,16 +25,16 @@
                 try{
                     let titles=search($(".codePlace").val()).titles;
                     let contains=search($(".codePlace").val()).contains;
-                    var textTemp="{\nname:\"\",\ncode:\n[\n";
+                    var textTemp="{name:\"\",\ncode:[";
                     for(var i=0;i<titles.length;i++){
-                        textTemp+="{\nsectionName:\""+titles[i].slice(6,-2)+"\",\n"
-                        textTemp+="context:\n"
-                        textTemp+="`\n";
+                        textTemp+="{sectionName:\""+titles[i].slice(6,-2)+"\","
+                        textTemp+="context:"
+                        textTemp+="`";
                         //textTemp+="/**!!!"+titles[i].slice(6,-2)+" */\n";
                         textTemp+=contains[i].slice(2,-4);
-                        textTemp+="\n`\n},";
+                        textTemp+="`},";
                     }
-                    textTemp+="\n]\n}\n,";
+                    textTemp+="]}\n,";
                     $(".outputPlace").val(textTemp);
                 }catch{
 
