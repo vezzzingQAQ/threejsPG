@@ -85,6 +85,12 @@ $(function(){
             let name=$(this).text();
             for(let i=0;i<store.length;i++){
                 if(name==store[i].name){
+                    try{//清空可能存在的面板组件
+                        $(".ac").empty();
+                    }catch{
+                        let outputStr="没有存在的datGUI控件";
+                        console.log(outputStr);
+                    }    
                     $(".displayDiv").empty();
                     renderCode(i);
                 }
@@ -100,10 +106,8 @@ $(function(){
             });
             $(".viewDiv .viewPlace").text(allCodeTemp);    
             try{
-                try{
-                    //移除可能存在的datGUI
-                    $("body").removeChild(".dg");
-                    $("body").removeChild(".ac");
+                try{//清空可能存在的面板组件
+                    $(".ac").empty();
                 }catch{
                     let outputStr="没有存在的datGUI控件";
                     console.log(outputStr);
