@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scene雾化</title>
+    <!--引入threeJs相关文件-->
+    <script src="../threejs/three/three.js"></script>
+    <script src="../threejs/three/controls/TrackballControls.js"></script>
+    <script src="../threejs/three/controls/OrbitControls.js"></script>
+    <script src="../threejs/util/dat.gui.js"></script>
+    <script src="../threejs/util/Stats.js"></script>
+    <!--辅助函数-->
+    <script src="../threejs/util.js"></script>
+    <!--引入公共CSS文件-->
+    <link rel="stylesheet" href="supportCss/style.css">
+    <script>
+window.onload=function(){
+//threeJs编码区
+//////////////////////////////////////////////////
+//!!**增加方块{{
+function addCube(){
+    var cubeSize=Math.random()*3;
+    var cubeGeometry=new THREE.BoxGeometry(cubeSize,cubeSize,cubeSize);
+    var cubeMaterial=new THREE.MeshLambertMaterial({
+        color:0xffffff,
+    });
+    var cube=new THREE.Mesh(cubeGeometry,cubeMaterial);
+    cube.name="cube-"+scene.children.length;
+    cube.position.x=-80+Math.random()*160;
+    cube.position.z=-80+Math.random()*160;
+    cube.position.y=Math.random()*5;
+    cube.rotation.x=Math.random()*Math.PI;
+    cube.rotation.y=Math.random()*Math.PI;
+    cube.rotation.z=Math.random()*Math.PI;
+    scene.add(cube);
+}
+//}}
+//!!**减少方块{{
+function removeCube(){
+    var allChildren=scene.children;
+    var lastObject=allChildren[allChildren.length-1];
+    if(lastObject instanceof THREE.Mesh){
+        scene.remove(lastObject);
+    }
+}
+//}}
+//!!**初始化世界{{
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(45,document.querySelector("#displayCanvas").offsetWidth/document.querySelector("#displayCanvas").offsetHeight,0.1,100);
+camera.position.set(0,50,1);
+camera.lookAt(scene.position);
+scene.add(camera);
+var renderer=new THREE.WebGLRenderer();
+renderer.setClearColor(new THREE.Color(0x000000));
+renderer.setSize(document.querySelector("#displayCanvas").offsetWidth,document.querySelector("#displayCanvas").offsetHeight);
+container=document.querySelector("#displayCanvas"); 
+container.appendChild(renderer.domElement);
+//}}
+//!!**添加雾{{
+scene.fog=new THREE.FogExp2(0x222222,0.05);
+//}}
+//!!**实现窗口大小自适应{{
+window.addEventListener("resize",function(){
+    camera.aspect=document.querySelector("#displayCanvas").offsetWidth/document.querySelector("#displayCanvas").offsetHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(document.querySelector("#displayCanvas").offsetWidth,document.querySelector("#displayCanvas").offsetHeight);
+},false);
+//}}
+//!!**增加光源{{
+var dist=80;
+var hst=150;
+var spotLight1=new THREE.SpotLight(0xff0000,dist,hst,dist);
+var spotLight2=new THREE.SpotLight(0x00ff00,dist,hst,-dist);
+var spotLight3=new THREE.SpotLight(0x0000ff,-dist,hst,dist);
+var spotLight4=new THREE.SpotLight(0x0ff000,-dist,hst,-dist);
+scene.add(spotLight1);
+scene.add(spotLight2);
+scene.add(spotLight3);
+scene.add(spotLight4);
+//}}
+//!!**先增加几个立方体{{
+for(let i=0;i<611;i++){
+    addCube();
+}
+//}}
+//!!**渲染场景scene_traverse遍历{{
+function render(){
+    scene.traverse(function(tbj){
+        if(tbj instanceof THREE.Mesh){
+            tbj.rotation.x+=0.01;
+        }
+    })
+    renderer.render(scene,camera);
+    requestAnimationFrame(render);
+}
+render();
+//}}
+//!!**整体操作{{
+var activeControls=new THREE.OrbitControls(camera,renderer.domElement);
+//}}
+//////////////////////////////////////////////////
+}
+    </script>
+</head>
+<body>
+    <div class="displayDiv" id="displayCanvas">
+    </div>
+</body>
+</html>
