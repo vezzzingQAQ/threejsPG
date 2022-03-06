@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scene雾化</title>
+    <!--引入threeJs相关文件-->
+    <script src="../threejs/three/three.js"></script>
+    <script src="../threejs/three/controls/TrackballControls.js"></script>
+    <script src="../threejs/three/controls/OrbitControls.js"></script>
+    <!-- <script src="../threejs/util/dat.gui.js"></script> -->
+    <script src="../threejs/util/Stats.js"></script>
+    <!--辅助函数-->
+    <script src="../threejs/util.js"></script>
+    <!--引入公共CSS文件-->
+    <link rel="stylesheet" href="supportCss/style.css">
+    <script>
+window.onload=function(){
+//threeJs编码区
+//////////////////////////////////////////////////
+//!!**增加方块{{
+function addCube(x,y,z){
+    var cubeSize=Math.random()*3;
+    var cubeGeometry=new THREE.BoxGeometry(cubeSize,cubeSize,cubeSize);
+    var cubeMaterial=new THREE.MeshLambertMaterial({
+        color:new THREE.Color(Math.random(),Math.random(),Math.random()),
+    });
+    var cube=new THREE.Mesh(cubeGeometry,cubeMaterial);
+    cube.name="cube-"+scene.children.length;
+    cube.position.x=x;
+    cube.position.y=y;
+    cube.position.z=z;
+    cube.rotation.x=Math.random()*Math.PI;
+    cube.rotation.y=Math.random()*Math.PI;
+    cube.rotation.z=Math.random()*Math.PI;
+    //产生阴影效果
+    cube.castShadow=true;
+    scene.add(cube);
+}
+//}}
+//!!**初始化世界{{
+var scene=new THREE.Scene();
+var camera=new THREE.PerspectiveCamera(45,document.querySelector("#displayCanvas").offsetWidth/document.querySelector("#displayCanvas").offsetHeight,0.1,100);
+camera.position.set(0,50,1);
+camera.lookAt(scene.position);
+scene.add(camera);
+var renderer=new THREE.WebGLRenderer();
+renderer.setClearColor(new THREE.Color(0x000000));
+renderer.setSize(document.querySelector("#displayCanvas").offsetWidth,document.querySelector("#displayCanvas").offsetHeight);
+//生成阴影
+renderer.shadowMapEnabled=true;
+container=document.querySelector("#displayCanvas"); 
+container.appendChild(renderer.domElement);
+//}}
+//!!**避免上下文丢失{{
+renderer.context.canvas.addEventListener("webglcontextlost", function(event) {
+    event.preventDefault();
+    // animationID would have been set by your call to requestAnimationFrame
+    cancelAnimationFrame(window.requestId); 
+}, false);
+renderer.context.canvas.addEventListener("webglcontextrestored", function(event) {
+   // Do something 
+}, false);
+//}}
+//!!**添加一个球体{{
+var sphereGeometry=new THREE.SphereGeometry(12,30,30);
+var sphereMaterial=new THREE.MeshLambertMaterial({
+    color:new THREE.Color(1,1,1),
+});
+var sphere=new THREE.Mesh(sphereGeometry,sphereMaterial);
+sphere.receiveShadow=true;
+sphere.position.set(0,0,0);
+scene.add(sphere);
+//}}
+//!!**实现窗口大小自适应{{
+window.addEventListener("resize",function(){
+    camera.aspect=document.querySelector("#displayCanvas").offsetWidth/document.querySelector("#displayCanvas").offsetHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(document.querySelector("#displayCanvas").offsetWidth,document.querySelector("#displayCanvas").offsetHeight);
+},false);
+//}}
+//!!**增加光源{{
+var spotLight=new THREE.SpotLight("#ffffff");
+spotLight.position.set(-40,60,-10);
+spotLight.castShadow=true;
+spotLight.shadow.camera.near=1;
+spotLight.shadow.camera.far=300;
+spotLight.target=sphere;
+//阴影抗锯齿
+spotLight.shadow.mapSize.width=13024;
+spotLight.shadow.mapSize.height=13024;
+scene.add(spotLight);
+//}}
+//!!**先增加几个立方体{{
+for(let x=-30;x<=30;x+=3){
+    for(let y=-30;y<30;y+=3){
+        addCube(x,Math.random()*100-50,y);
+    }
+}
+//}}
+//!!**渲染场景{{
+    function render(){
+    scene.traverse(function(tbj){
+        if(tbj instanceof THREE.Mesh){
+            tbj.rotation.x+=0.01;
+        }
+    })
+    renderer.render(scene,camera);
+    window.requestId=window.requestAnimationFrame(render);
+}
+render();
+//}}
+//!!**整体操作{{
+var activeControls=new THREE.OrbitControls(camera,renderer.domElement);
+//}}
+//////////////////////////////////////////////////
+}
+    </script>
+</head>
+<body>
+    <div class="displayDiv" id="displayCanvas">
+    </div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>directionalLight</title>
+    <!--引入threeJs相关文件-->
+    <script src="../threejs/three/three.js"></script>
+    <script src="../threejs/three/controls/TrackballControls.js"></script>
+    <script src="../threejs/three/controls/OrbitControls.js"></script>
+    <!-- <script src="../threejs/util/dat.gui.js"></script> -->
+    <script src="../threejs/util/Stats.js"></script>
+    <!--辅助函数-->
+    <script src="../threejs/util.js"></script>
+    <!--引入公共CSS文件-->
+    <link rel="stylesheet" href="supportCss/style.css">
+    <script>
+window.onload=function(){
+//threeJs编码区
+//////////////////////////////////////////////////
+//!!**增加方块{{
+function addCube(x,y,z){
+    var cubeSize=5;
+    var cubeGeometry=new THREE.BoxGeometry(cubeSize,cubeSize,cubeSize);
+    var cubeMaterial=new THREE.MeshLambertMaterial({
+        color:new THREE.Color(1,Math.random()/2,Math.random()),
+    });
+    var cube=new THREE.Mesh(cubeGeometry,cubeMaterial);
+    cube.name="cube-"+scene.children.length;
+    cube.position.x=x;
+    cube.position.y=y;
+    cube.position.z=z;
+    scene.add(cube);
+}
+//}}
+//!!**初始化世界{{
+var scene=new THREE.Scene();
+var camera=new THREE.OrthographicCamera(
+    document.querySelector("#displayCanvas").offsetWidth/-16,
+    document.querySelector("#displayCanvas").offsetWidth/16,
+    document.querySelector("#displayCanvas").offsetHeight/16,
+    document.querySelector("#displayCanvas").offsetHeight/-16,
+    -200,500
+);
+camera.position.set(50,50,50);
+camera.lookAt(scene.position);
+scene.add(camera);
+var renderer=new THREE.WebGLRenderer();
+renderer.setClearColor(new THREE.Color(0x000000));
+renderer.setSize(document.querySelector("#displayCanvas").offsetWidth,document.querySelector("#displayCanvas").offsetHeight);
+container=document.querySelector("#displayCanvas"); 
+container.appendChild(renderer.domElement);
+//}}
+//!!**实现窗口大小自适应{{
+window.addEventListener("resize",function(){
+    camera.aspect=document.querySelector("#displayCanvas").offsetWidth/document.querySelector("#displayCanvas").offsetHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(document.querySelector("#displayCanvas").offsetWidth,document.querySelector("#displayCanvas").offsetHeight);
+},false);
+//}}
+//!!**增加光源{{
+var directionalLight=new THREE.DirectionalLight("#ffffff");
+directionalLight.position.set(30,10,10);
+directionalLight.shadow.camera.near=2;
+directionalLight.shadow.camera.far=300;
+directionalLight.shadow.camera.left=-100;
+directionalLight.shadow.camera.right=100;
+directionalLight.shadow.camera.top=100;
+directionalLight.shadow.camera.bottom=-100;
+var target=new THREE.Object3D();
+target.position=new THREE.Vector3(5,0,0);
+directionalLight.target=target;
+scene.add(directionalLight);
+//}}
+//!!**先增加几个立方体{{
+for(let x=-50;x<=50;x+=5){
+    for(let y=-50;y<50;y+=5){
+        addCube(x,(Math.floor(Math.random()*20-10))*5,y);
+    }
+}
+//}}
+//!!**渲染场景{{
+function render(){
+    renderer.render(scene,camera);
+    window.requestId=window.requestAnimationFrame(render);
+}
+render();
+//}}
+//!!**整体操作{{
+var activeControls=new THREE.OrbitControls(camera,renderer.domElement);
+//}}
+//////////////////////////////////////////////////
+}
+    </script>
+</head>
+<body>
+    <div class="displayDiv" id="displayCanvas">
+    </div>
+</body>
+</html>
